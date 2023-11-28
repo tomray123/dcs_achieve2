@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отправить случайное число</title>
+</head>
+<body>
+    <h1>Отправить случайное число</h1>
+
+    <button onclick="sendRandomNumber()">Отправить</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function sendRandomNumber() {
+            // Генерация случайного числа от 0 до 100
+            var randomNumber = Math.floor(Math.random() * 101);
+
+            // Отправка запроса на сервер
+            axios.post('/process_number', {
+                number: randomNumber
+            })
+            .then(function (response) {
+                alert('Ответ от сервера: ' + response.data.result);
+            })
+            .catch(function (error) {
+                alert('Ошибка: ' + error.response.data.error);
+            });
+        }
+    </script>
+</body>
+</html>
