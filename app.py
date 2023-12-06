@@ -35,7 +35,7 @@ def process_number():
 
         # Проверка исключительной ситуации #2
         cursor.execute('SELECT * FROM numbers WHERE value = ?', (number+1,))
-        max_value = cursor.fetchone()[0]
+        max_value = cursor.fetchone()
         if max_value is not None:
             conn.close()
             return jsonify({'error': 'Your number is 1 less than the existing one.'}), 400
