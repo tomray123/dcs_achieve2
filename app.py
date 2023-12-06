@@ -34,11 +34,11 @@ def process_number():
             return jsonify({'error': 'Number already processed.'}), 400
 
         # Проверка исключительной ситуации #2
-        cursor.execute('SELECT MAX(value) FROM numbers')
+        cursor.execute('SELECT * FROM numbers WHERE value = ?', (number+1,))
         max_value = cursor.fetchone()[0]
-        if max_value is not None and number - 1 < max_value:
+        if max_value is not None:
             conn.close()
-            return jsonify({'error': 'Invalid number sequence.'}), 400
+            return jsonify({'error': 'Your number is 1 less than the existing one.'}), 400
 
         # Добавление числа в базу данных
         cursor.execute('INSERT INTO numbers (value) VALUES (?)', (number,))
